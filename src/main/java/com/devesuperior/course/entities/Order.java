@@ -2,9 +2,10 @@ package com.devesuperior.course.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.Objects;
 
-import jakarta.annotation.Generated;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,24 +17,29 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy =  GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Instant moment;
-//	private OderStatus orderStatus;
 
+	
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
+	private Instant moment;
+
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private User client;
 
-	public Order(Long id, Instant moment, User user) {
+	public Order() {
+	}
+
+	public Order(Long id, Instant moment, User client) {
 		super();
 		this.id = id;
 		this.moment = moment;
-		this.client = user;
+		this.client = client;
 	}
 
 	public Long getId() {
@@ -52,17 +58,20 @@ public class Order implements Serializable {
 		this.moment = moment;
 	}
 
-	public User getUser() {
+	public User getClient() {
 		return client;
 	}
 
-	public void setUser(User user) {
-		this.client = user;
+	public void setClient(User client) {
+		this.client = client;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
 	@Override
@@ -74,12 +83,11 @@ public class Order implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Order other = (Order) obj;
-		return Objects.equals(id, other.id);
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "Order [id=" + id + ", moment=" + moment + ", user=" + client + "]";
-	}
-
 }
