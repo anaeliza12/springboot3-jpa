@@ -1,12 +1,17 @@
 package com.devesuperior.course.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -20,13 +25,12 @@ public class Category implements Serializable {
 	private Long id;
 	private String name;
 
-//	@OneToMany(mappedBy = "category");
-//	private List<Product> products;
+
+	private Set<Product> products = new HashSet<>();
 
 	public Category() {
 
 	}
-
 	public Category(Long id, String name) {
 
 		this.id = id;
@@ -54,6 +58,9 @@ public class Category implements Serializable {
 		return Objects.hash(id);
 	}
 
+	public Set<Product> getProducts() {
+		return products;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
