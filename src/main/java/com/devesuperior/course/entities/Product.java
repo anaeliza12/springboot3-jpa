@@ -1,16 +1,17 @@
 package com.devesuperior.course.entities;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
-
-import org.hibernate.annotations.ManyToAny;
+import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,17 +25,21 @@ public class Product {
 	private String description;
 	private Double price;
 
-	@ManyToOne
-	@JoinColumn(name = "category")
-	private Category category;
+	@ManyToMany
+	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "prodcuts_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	private Set<Category> categories = new HashSet<>();
 
-	public Product(Long id, String name, String description, Double price, Category category) {
+	public Product() {
+
+	}
+
+	public Product(Long id, String name, String description, Double price) {
 
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
-		this.category = category;
+
 	}
 
 	public Long getId() {
@@ -69,12 +74,8 @@ public class Product {
 		this.price = price;
 	}
 
-	public Category getCategory() {
-		return category;
-	}
-
-	public void setCategory(Category category) {
-		this.category = category;
+	public Set<Category> getCategory() {
+		return categories;
 	}
 
 	@Override
@@ -96,8 +97,7 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price
-				+ ", category=" + category + "]";
+		return "Product [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + "]";
 	}
 
 }
