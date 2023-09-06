@@ -15,10 +15,10 @@ import com.devesuperior.course.service.OrderService;
 import com.devesuperior.course.service.ProductService;
 
 @RestController
-@RequestMapping(value = "/produtcs")
+@RequestMapping(value = "/products")
 public class ProductResource {
 
-	@Autowired
+	@Autowired 
 	private ProductService service;
 
 	@GetMapping
@@ -33,3 +33,4 @@ public class ProductResource {
 		return ResponseEntity.ok().body(obj);
 	}
 }
+

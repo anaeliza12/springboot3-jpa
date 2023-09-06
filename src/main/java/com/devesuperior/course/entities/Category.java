@@ -2,8 +2,6 @@ package com.devesuperior.course.entities;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,32 +10,28 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_category")
 public class Category implements Serializable {
-
-	static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 
-
 	@JsonIgnore
 	@ManyToMany(mappedBy = "categories")
 	private Set<Product> products = new HashSet<>();
-
+	
 	public Category() {
-
 	}
-	public Category(Long id, String name) {
 
+	public Category(Long id, String name) {
+		super();
 		this.id = id;
 		this.name = name;
 	}
@@ -58,14 +52,18 @@ public class Category implements Serializable {
 		this.name = name;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
 	public Set<Product> getProducts() {
 		return products;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -75,12 +73,11 @@ public class Category implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Category other = (Category) obj;
-		return Objects.equals(id, other.id);
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "Category [id=" + id + ", name=" + name + "]";
-	}
-
 }

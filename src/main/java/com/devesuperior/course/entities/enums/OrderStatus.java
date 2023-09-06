@@ -15,11 +15,11 @@ public enum OrderStatus {
 	}
 
 	public static OrderStatus valueOf(int code) {
-		for (OrderStatus o : OrderStatus.values()) {
-			if (o.getCode() == code)
-				return o;
-
+		for (OrderStatus value : OrderStatus.values()) {
+			if (value.getCode() == code) {
+				return value;
+			}
 		}
-		throw new IllegalArgumentException("OrderStatus invalid");
+		throw new IllegalArgumentException("Invalid OrderStatus code");
 	}
 }
