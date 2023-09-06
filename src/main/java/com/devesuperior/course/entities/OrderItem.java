@@ -32,7 +32,7 @@ public class OrderItem implements Serializable {
 	}
 
 	
-	public Double getSubTotal() {
+	public Double getSubTotal() { 
 		return price * quantity;
 	}
 	@JsonIgnore
