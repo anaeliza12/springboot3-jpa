@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_product")
-public class Product  implements Serializable {
+public class Product implements Serializable {
 
 	static final long serialVersionUID = 1L;
 
@@ -29,7 +29,7 @@ public class Product  implements Serializable {
 	private Double price;
 
 	@ManyToMany
-	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "prodcucts_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
+	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "products_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 
 	public Product() {
@@ -80,6 +80,7 @@ public class Product  implements Serializable {
 	public Set<Category> getCategory() {
 		return categories;
 	}
+
 
 	@Override
 	public int hashCode() {
