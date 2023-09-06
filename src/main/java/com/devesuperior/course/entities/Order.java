@@ -27,7 +27,7 @@ public class Order implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Instant moment;
-	
+
 	private Integer orderStatus;
 
 	@ManyToOne
@@ -36,10 +36,10 @@ public class Order implements Serializable {
 
 	@OneToMany(mappedBy = "id.order")
 	private Set<OrderItem> items = new HashSet<>();
-	
+
 	@OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
 	private Payment payment;
-	
+
 	public Payment getPayment() {
 		return payment;
 	}
@@ -92,11 +92,22 @@ public class Order implements Serializable {
 			this.orderStatus = orderStatus.getCode();
 		}
 	}
-	
+
 	public Set<OrderItem> getItems() {
 		return items;
 	}
-	
+
+	public Double getTotal() {
+		Double total = 0.0;
+
+		for (OrderItem o : items) {
+			total += o.getSubTotal();
+		}
+
+		return total;
+
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
