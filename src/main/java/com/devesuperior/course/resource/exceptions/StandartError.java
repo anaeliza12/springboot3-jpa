@@ -4,12 +4,12 @@ import java.io.Serializable;
 import java.time.Instant;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.ResponseEntity.HeadersBuilder;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 
 public class StandartError implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private Instant timestamp;
 	private Integer status;
 	private String error;
@@ -20,7 +20,7 @@ public class StandartError implements Serializable {
 
 	}
 
-	public StandartError(Instant timestamp, Integer  status, String error, String message, String path) {
+	public StandartError(Instant timestamp, Integer status, String error, String message, String path) {
 		this.timestamp = timestamp;
 		this.status = status;
 		this.error = error;
@@ -40,7 +40,7 @@ public class StandartError implements Serializable {
 		return status;
 	}
 
-	public void setStatus(Integer  status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
