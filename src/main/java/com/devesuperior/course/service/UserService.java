@@ -11,14 +11,9 @@ import org.springframework.stereotype.Service;
 import com.devesuperior.course.entities.User;
 import com.devesuperior.course.repository.UserRepository;
 import com.devesuperior.course.service.exceptions.DataBaseException;
-
 import com.devesuperior.course.service.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
-
-
-
-
 
 @Service
 public class UserService {
@@ -52,9 +47,9 @@ public class UserService {
 	public User update(Long id, User user) {
 		User entity = repository.getReferenceById(id);
 		try {
-			
-		updateData(user, entity);
-		}catch(EntityNotFoundException e) {
+
+			updateData(user, entity);
+		} catch (EntityNotFoundException e) {
 			throw new ResourceNotFoundException(id);
 		}
 		return repository.save(entity);

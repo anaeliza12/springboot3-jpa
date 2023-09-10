@@ -23,7 +23,7 @@ import com.devesuperior.course.repository.ProductRepository;
 import com.devesuperior.course.repository.UserRepository;
 
 @Configuration
-@Profile("test")
+@Profile("dev")
 public class Testconfig implements CommandLineRunner {
 
 	@Autowired
