@@ -21,7 +21,6 @@ A aplicação oferece uma solução flexível e escalável para gerenciar o proc
 
 # Tecnologias utilizadas
 ## Back end
-- Java
 - Spring Boot
 - JPA / Hibernate
 - Maven
